@@ -30,15 +30,30 @@ public class ChatappApplication {
 			chat1.addPost(new Post("hello"));
 			chat1.addPost(new Post("belloo"));
 
+			chat1.addFriend(jozo);
+			chat1.addFriend(bozo);
+
+			jozo.addChat(chat1);
+			bozo.addChat(chat1);
+
+			userRepository.save(bozo);
+
 			Chat chat2 = chatRepository.save(new Chat());
 			chat2.addPost(new Post("sup breh"));
 			chat2.addPost(new Post("not much"));
 			chat2.addPost(new Post("hbout u?"));
 
-			
-			chatRepository.save(chat2);
-			chatRepository.save(chat1);
+			chat2.addFriend(jozo);
+			chat2.addFriend(micah);
 
+			userRepository.save(micah);
+			userRepository.save(jozo);
+
+			chatRepository.save(chat1);
+			chatRepository.save(chat2);
+
+			
+			
 
 
 

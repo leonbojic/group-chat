@@ -7,7 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -17,9 +17,18 @@ public class Chat {
 
     @OneToMany(
         cascade = CascadeType.ALL,
-        orphanRemoval = true    
+        orphanRemoval = true
     )
     private List<Post> posts = new ArrayList<>();
+    
+
+    @ManyToMany(
+        mappedBy = "chats"
+        
+    )
+    private List<Friend> friends = new ArrayList<>();
+
+
 
     public Chat(){}
 
@@ -36,10 +45,16 @@ public class Chat {
         return posts;
     }
     
+    public List<Friend> getFriends(){
+        return friends;
+    }
 
     public void addPost(Post post){
         posts.add(post);
     }
     
+    public void addFriend(Friend friend){
+        friends.add(friend);
+    }
     
 }
