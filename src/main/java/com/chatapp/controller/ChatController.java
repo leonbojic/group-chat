@@ -2,6 +2,7 @@ package com.chatapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,5 +42,15 @@ public class ChatController {
         return chatService.addMember(chatId, memberId);
     }
     
+
+    @GetMapping("/bar/{id}")
+    Set<Member> bar(@PathVariable Long id){
+        return chatService.findChatById(id).getMembers();
+    }
+
+    @GetMapping("/poo/{id}")
+    Member poo(@PathVariable Long id){
+        return chatService.findMemberById(id);
+    }
 
 }

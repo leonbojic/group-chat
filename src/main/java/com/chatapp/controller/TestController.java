@@ -1,6 +1,7 @@
 package com.chatapp.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.h2.util.MemoryEstimator;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,12 +34,12 @@ public class TestController {
     }
 
     @GetMapping("/chat/{chatId}")
-    List<Post> getConversation(@PathVariable Long chatId){
+    Set<Post> getConversation(@PathVariable Long chatId){
         return chatRepository.findById(chatId).get().getPosts();
     }
 
     @GetMapping("/chat/{chatId}/members")
-    List<Member> getMembers(@PathVariable Long chatId){
+    Set<Member> getMembers(@PathVariable Long chatId){
         return chatRepository.findById(chatId).get().getMembers();
     }
 

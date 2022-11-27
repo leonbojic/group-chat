@@ -1,7 +1,7 @@
 package com.chatapp.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,11 +20,11 @@ public class Chat {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    private List<Post> posts = new ArrayList<>();
+    private Set<Post> posts = new HashSet<>();
     @ManyToMany(
         mappedBy = "chats"
     )
-    private List<Member> members = new ArrayList<>();
+    private Set<Member> members = new HashSet<>();
 
     public Chat(){}
 
@@ -42,11 +42,11 @@ public class Chat {
         this.id = id;
     }
   
-    public List<Post> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
     
-    public List<Member> getMembers(){
+    public Set<Member> getMembers(){
         return members;
     }
 

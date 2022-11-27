@@ -33,6 +33,9 @@ public class ChatServiceImpl implements ChatService {
     public Chat addMember(Long chatId, Long memberId) {
         Chat chat = this.findChatById(chatId);
         Member member = this.findMemberById(memberId);
+        if(chat.getMembers().contains(member)){
+            return chat;
+        }
         chat.addMember(member);
         member.addChat(chat);
         memberRepository.save(member);
@@ -94,8 +97,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Post findPostById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return postRepository.findById(id).get();
     }
 
 
