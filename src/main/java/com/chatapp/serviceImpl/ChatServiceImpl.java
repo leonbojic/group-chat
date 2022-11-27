@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.chatapp.model.Chat;
 import com.chatapp.model.Member;
-import com.chatapp.model.Post;
 import com.chatapp.repository.ChatRepository;
-import com.chatapp.repository.PostRepository;
 import com.chatapp.repository.MemberRepository;
 import com.chatapp.service.ChatService;
 
@@ -16,22 +14,22 @@ import com.chatapp.service.ChatService;
 public class ChatServiceImpl implements ChatService {
     private final ChatRepository chatRepository;
     private final MemberRepository memberRepository;
-    private final PostRepository postRepository;
+   // private final PostRepository postRepository;
 
     public ChatServiceImpl(
             ChatRepository chatRepository,
-            MemberRepository memberRepository,
-            PostRepository postRepository
+            MemberRepository memberRepository
+        //    PostRepository postRepository
     ) {
         this.chatRepository = chatRepository;
         this.memberRepository = memberRepository;
-        this.postRepository = postRepository;
+  //      this.postRepository = postRepository;
     }
 
     @Override
     public Chat addMember(Long chatId, Long memberId) {
-        Chat chat = this.findChatById(chatId);
-        Member member = this.findMemberById(memberId);
+        Chat chat = chatRepository.findById(chatId).get();
+        Member member = memberRepository.findById(memberId).get();
         if(chat.getMembers().contains(member)){
             return chat;
         }
@@ -40,24 +38,10 @@ public class ChatServiceImpl implements ChatService {
         memberRepository.save(member);
         return chatRepository.save(chat);
     }
-
-    @Override
-    public void deleteChat(Chat chat) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void deletePost(Post post) {
-        // TODO Auto-generated method stub
-
-    }
-
     @Override
     public Chat newChat(List<Long> memberIds) {
         Chat newChat = new Chat();
         String chatName = "";
-
         for(Long memberId : memberIds){
             Member chatMember = memberRepository.findById(memberId).get();
             chatMember.addChat(newChat);
@@ -68,41 +52,25 @@ public class ChatServiceImpl implements ChatService {
         newChat.setChatname(chatName);
         return chatRepository.save(newChat);
     }
-
     @Override
-    public Post newPost(Post post) {
-        // TODO Auto-generated method stub
-        return null;
+    public Chat removeMember(Long chatId, Long memberId) {
+        Chat chat = chatRepository.findById(chatId).get();
+        Member member = memberRepository.findById(memberId).get();
+        if(!chat.getMembers().contains(member)){
+            return chat;
+        }
+        member.removeChat(chat);
+        chat.removeMember(member);
+        memberRepository.save(member);
+
+        if(chat.getMembers().isEmpty()){
+            chatRepository.delete(chat);
+            return null;
+        }
+        return chatRepository.save(chat);
     }
-
     @Override
-    public Chat removeMember(Chat chat, Member member) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Chat findChatById(Long id) {
+    public Chat getChat(Long id) {
         return chatRepository.findById(id).get();
     }
-
-    @Override
-    public Member findMemberById(Long id) {
-        return memberRepository.findById(id).get();
-    }
-
-    @Override
-    public Post findPostById(Long id) {
-        return postRepository.findById(id).get();
-    }
-
-    @Override
-    public void deletePostFromChat(Long chatId, Long postId){
-        Post post = findPostById(postId);
-
-        Chat chat = findChatById(chatId);
-        chat.removePost(post);
-        chatRepository.save(chat);
-    }
-    
 }

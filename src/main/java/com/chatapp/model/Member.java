@@ -52,6 +52,8 @@ public class Member {
     public void addChat(Chat chat){
         chats.add(chat);
     }
-
+    public void removeChat(Chat chat){
+        chats.remove(chat);
+    }
 
 }

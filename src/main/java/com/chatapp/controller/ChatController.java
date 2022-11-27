@@ -1,9 +1,7 @@
 package com.chatapp.controller;
 
 import java.util.List;
-import java.util.Set;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatapp.model.Chat;
-import com.chatapp.model.Member;
 import com.chatapp.service.ChatService;
 
 @RestController
@@ -26,38 +23,21 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @GetMapping("/foo/{id}")
-    List<Chat> test(@PathVariable Long id){
-        return chatService.findMemberById(id).getChats();
-
-    }
-
     @PostMapping("/new")
-    Chat newChat(@RequestBody List<Long> memberIds){
+    public Chat newChat(@RequestBody List<Long> memberIds){
         return chatService.newChat(memberIds);
     }
-
     @PutMapping("/{chatId}/add/{memberId}")
-    public Chat addMembertoChat(@PathVariable Long chatId, @PathVariable Long memberId){
+    public Chat addMember(@PathVariable Long chatId, @PathVariable Long memberId){
         return chatService.addMember(chatId, memberId);
     }
-    
-
-    @GetMapping("/bar/{id}")
-    Set<Member> bar(@PathVariable Long id){
-        return chatService.findChatById(id).getMembers();
+    @PutMapping("/{chatId}/remove/{memberId}")
+    public Chat removeMember(@PathVariable Long chatId, @PathVariable Long memberId){
+        return chatService.removeMember(chatId, memberId);
     }
-
-    @GetMapping("/poo/{id}")
-    Member poo(@PathVariable Long id){
-        return chatService.findMemberById(id);
+    @GetMapping("/{chatId}")
+    public Chat getChat(@PathVariable Long chatId){
+        return chatService.getChat(chatId);
     }
-
-    @DeleteMapping("/{chatId}/delete/{postId}")
-    void deletePost(@PathVariable Long chatId, @PathVariable Long postId){
-        chatService.deletePostFromChat(chatId, postId);
-
-    }
-
 
 }
