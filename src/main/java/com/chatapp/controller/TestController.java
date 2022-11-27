@@ -15,18 +15,18 @@ import com.chatapp.model.Member;
 import com.chatapp.model.Post;
 import com.chatapp.repository.ChatRepository;
 import com.chatapp.repository.PostRepository;
-import com.chatapp.repository.UserRepository;
+import com.chatapp.repository.MemberRepository;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RequestMapping("/test")
 @RestController
 public class TestController {
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
     private final ChatRepository chatRepository;
     private final PostRepository postRepository;
 
     
-    public TestController(UserRepository userRepository, ChatRepository chatRepository, PostRepository postRepository) {
+    public TestController(MemberRepository userRepository, ChatRepository chatRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
         this.chatRepository = chatRepository;
         this.postRepository = postRepository;

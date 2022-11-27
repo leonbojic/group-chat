@@ -10,7 +10,7 @@ import com.chatapp.model.Member;
 import com.chatapp.model.Post;
 import com.chatapp.repository.ChatRepository;
 import com.chatapp.repository.PostRepository;
-import com.chatapp.repository.UserRepository;
+import com.chatapp.repository.MemberRepository;
 
 @SpringBootApplication
 public class ChatappApplication {
@@ -20,7 +20,7 @@ public class ChatappApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(UserRepository userRepository, PostRepository postRepository, ChatRepository chatRepository){
+	CommandLineRunner commandLineRunner(MemberRepository userRepository, PostRepository postRepository, ChatRepository chatRepository){
 		return args->{
 			Member micah = userRepository.save(new Member("micah"));
 			Member bozo = userRepository.save(new Member("bozo"));
