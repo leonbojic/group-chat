@@ -1,6 +1,5 @@
 package com.chatapp.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class ChatController {
     }
 
     @PutMapping("/{chatId}/add/{memberId}")
-    Chat addMembertoChat(@PathVariable Long chatId, @PathVariable Long memberId){
+    public Chat addMembertoChat(@PathVariable Long chatId, @PathVariable Long memberId){
         return chatService.addMember(chatId, memberId);
     }
     

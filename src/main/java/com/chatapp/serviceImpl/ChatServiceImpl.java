@@ -11,7 +11,6 @@ import com.chatapp.repository.ChatRepository;
 import com.chatapp.repository.PostRepository;
 import com.chatapp.repository.MemberRepository;
 import com.chatapp.service.ChatService;
-import com.fasterxml.classmate.MemberResolver;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -39,9 +38,6 @@ public class ChatServiceImpl implements ChatService {
         chat.addMember(member);
         member.addChat(chat);
         memberRepository.save(member);
-        String chatName = chat.getChatname();
-        chatName += member.getUsername() + ", ";
-        chat.setChatname(chatName);
         return chatRepository.save(chat);
     }
 
