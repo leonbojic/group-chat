@@ -2,7 +2,7 @@ package com.chatapp.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,19 +10,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
 @Entity
 public class Post {
 
     private @Id @GeneratedValue Long id;
-    private String username;
+    
+    @ManyToOne()
+    private Member poster;
     private String content;
     private LocalDateTime timestamp;
     
     @ManyToOne(
-        cascade = CascadeType.ALL,
+        //cascade = CascadeType.ALL,
         fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "chatId")
+    @JoinColumn(
+        name = "chatId"    
+    )
     private Chat chat;
 
     public Post() {
@@ -32,8 +37,8 @@ public class Post {
         this.content = content;
     }
 
-    public Post(String username, String content){
-        this.username = username;
+    public Post( Member poster, String content){
+        this.poster = poster;
         this.content = content;
     }
 
@@ -69,12 +74,12 @@ public class Post {
         this.chat = chat;
     }
 
-    public String getUsername() {
-        return username;
+    public Member getPoster() {
+        return poster;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(Member poster) {
+        this.poster = poster;
     }
 
 

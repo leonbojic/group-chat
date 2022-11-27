@@ -22,4 +22,6 @@ public interface ChatService {
     Member findMemberById(Long id);
     Post findPostById(Long id);
 
+    void deletePostFromChat(Long chatId, Long postId);
+
 }

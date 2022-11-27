@@ -19,7 +19,7 @@ public class ChatappApplication {
 		SpringApplication.run(ChatappApplication.class, args);
 	}
 
-	@Bean
+	
 	CommandLineRunner commandLineRunner(MemberRepository userRepository, PostRepository postRepository, ChatRepository chatRepository){
 		return args->{
 			Member micah = userRepository.save(new Member("micah"));
@@ -67,6 +67,31 @@ public class ChatappApplication {
 		};
 
 
+	}
+
+	@Bean
+	CommandLineRunner commandLineRunner2(MemberRepository userRepository, PostRepository postRepository, ChatRepository chatRepository){
+		return args->{
+			Member micah = userRepository.save(new Member("micah"));
+			Member bozo = userRepository.save(new Member("bozo"));
+			Member jozo = userRepository.save(new Member("jozo"));
+			Member bill = userRepository.save(new Member("bill"));
+
+			Chat chat1 = new Chat();
+			
+			chat1.addMember(micah);
+			chat1.addMember(bozo);
+			
+			chat1.addPost(new Post(micah, "hey Bozo"));
+			micah.addChat(chat1);
+			
+			chat1.addPost(new Post(bozo, "bello"));
+			bozo.addChat(chat1);
+
+
+			chat1.setChatname("micah and bozo");
+			chatRepository.save(chat1);
+		};
 	}
 
 }

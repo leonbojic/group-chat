@@ -17,6 +17,7 @@ public class Chat {
     private String chatname;
 
     @OneToMany(
+        
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
@@ -51,11 +52,19 @@ public class Chat {
     }
 
     public void addPost(Post post){
+        post.setChat(this);
         posts.add(post);
     }
-    
+    public void removePost(Post post){
+        posts.remove(post);
+    }
+
+
     public void addMember(Member member){
         members.add(member);
     }
     
+    public void removeMember(Member member){
+        members.remove(member);
+    }
 }

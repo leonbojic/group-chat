@@ -3,6 +3,7 @@ package com.chatapp.controller;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +52,12 @@ public class ChatController {
     Member poo(@PathVariable Long id){
         return chatService.findMemberById(id);
     }
+
+    @DeleteMapping("/{chatId}/delete/{postId}")
+    void deletePost(@PathVariable Long chatId, @PathVariable Long postId){
+        chatService.deletePostFromChat(chatId, postId);
+
+    }
+
 
 }

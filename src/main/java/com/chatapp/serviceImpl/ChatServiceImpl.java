@@ -96,6 +96,13 @@ public class ChatServiceImpl implements ChatService {
         return postRepository.findById(id).get();
     }
 
+    @Override
+    public void deletePostFromChat(Long chatId, Long postId){
+        Post post = findPostById(postId);
 
+        Chat chat = findChatById(chatId);
+        chat.removePost(post);
+        chatRepository.save(chat);
+    }
     
 }
