@@ -13,27 +13,28 @@ import javax.persistence.OneToMany;
 @Entity
 public class Chat {
     private @Id @GeneratedValue Long id;
-  
+    
+    private String chatname;
 
     @OneToMany(
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
     private List<Post> posts = new ArrayList<>();
-    
-
     @ManyToMany(
         mappedBy = "chats"
-        
     )
-    private List<Friend> friends = new ArrayList<>();
-
-
+    private List<Member> members = new ArrayList<>();
 
     public Chat(){}
 
 
-
+    public String getChatname() {
+        return chatname;
+    }
+    public void setChatname(String chatname) {
+        this.chatname = chatname;
+    }
     public Long getId() {
         return id;
     }
@@ -45,16 +46,16 @@ public class Chat {
         return posts;
     }
     
-    public List<Friend> getFriends(){
-        return friends;
+    public List<Member> getMembers(){
+        return members;
     }
 
     public void addPost(Post post){
         posts.add(post);
     }
     
-    public void addFriend(Friend friend){
-        friends.add(friend);
+    public void addMember(Member member){
+        members.add(member);
     }
     
 }

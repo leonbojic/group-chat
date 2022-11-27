@@ -14,9 +14,10 @@ import javax.persistence.ManyToOne;
 public class Post {
 
     private @Id @GeneratedValue Long id;
+    private String username;
     private String content;
     private LocalDateTime timestamp;
-
+    
     @ManyToOne(
         cascade = CascadeType.ALL,
         fetch = FetchType.LAZY
@@ -28,6 +29,11 @@ public class Post {
     }
 
     public Post(String content) {
+        this.content = content;
+    }
+
+    public Post(String username, String content){
+        this.username = username;
         this.content = content;
     }
 
@@ -63,4 +69,14 @@ public class Post {
         this.chat = chat;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+    
 }

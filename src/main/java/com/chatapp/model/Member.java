@@ -10,22 +10,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class Friend {
+public class Member {
     private @Id @GeneratedValue Long id;
     private String username;
 
     @ManyToMany
     @JoinTable(
-        name = "chat_friend",
-        joinColumns = @JoinColumn(name = "friend_id"),
+        name = "chat_member",
+        joinColumns = @JoinColumn(name = "member_id"),
         inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
+    @JsonIgnore
     private List<Chat> chats = new ArrayList<>();
 
-    public Friend(){}
+    public Member(){}
 
-    public Friend(String username){
+    public Member(String username){
         this.username =username;
     }
 
