@@ -1,2 +1,1 @@
-# chat-app
 # group-chat
