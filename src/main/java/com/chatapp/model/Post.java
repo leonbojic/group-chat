@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Post {
@@ -28,6 +30,7 @@ public class Post {
     @JoinColumn(
         name = "chatId"    
     )
+    @JsonIgnore
     private Chat chat;
 
     public Post() {
