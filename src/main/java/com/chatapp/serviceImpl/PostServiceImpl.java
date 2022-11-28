@@ -16,7 +16,6 @@ import com.chatapp.model.Post;
 import com.chatapp.repository.ChatRepository;
 import com.chatapp.repository.MemberRepository;
 import com.chatapp.repository.PostRepository;
-import com.chatapp.service.ExceptionService;
 import com.chatapp.service.PostService;
 
 @Service
@@ -24,18 +23,15 @@ public class PostServiceImpl implements PostService {
     private final ChatRepository chatRepository;
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
-    private final ExceptionService exceptionService;
 
     public PostServiceImpl(
             ChatRepository chatRepository,
             MemberRepository memberRepository,
-            PostRepository postRepository,
-            ExceptionService exceptionService
+            PostRepository postRepository
     ) {
         this.chatRepository = chatRepository;
         this.memberRepository = memberRepository;
         this.postRepository = postRepository;
-        this.exceptionService = exceptionService;
     }
 
     @Override

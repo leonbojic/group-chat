@@ -1,10 +1,13 @@
 package com.chatapp.serviceImpl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.chatapp.exception.ChatNotFoundException;
 import com.chatapp.exception.MemberNotFoundException;
+import com.chatapp.exception.MemberNotInChatException;
 import com.chatapp.model.Chat;
 import com.chatapp.model.Member;
 import com.chatapp.repository.ChatRepository;
@@ -29,8 +32,8 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public Chat addMember(Long chatId, Long memberId) {
-        Chat chat = chatRepository.findById(chatId).get();
-        Member member = memberRepository.findById(memberId).get();
+        Chat chat = chatRepository.findById(chatId).orElseThrow(() -> new ChatNotFoundException(chatId));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
         if(chat.getMembers().contains(member)){
             return chat;
         }
@@ -44,7 +47,7 @@ public class ChatServiceImpl implements ChatService {
         Chat newChat = new Chat();
         String chatName = "";
         for(Long memberId : memberIds){
-            Member chatMember = memberRepository.findById(memberId).get();
+            Member chatMember = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
             chatMember.addChat(newChat);
             newChat.addMember(chatMember);
             chatName += chatMember.getUsername() + ", ";
@@ -55,10 +58,10 @@ public class ChatServiceImpl implements ChatService {
     }
     @Override
     public Chat removeMember(Long chatId, Long memberId) {
-        Chat chat = chatRepository.findById(chatId).get();
-        Member member = memberRepository.findById(memberId).get();
+        Chat chat = chatRepository.findById(chatId).orElseThrow(()-> new ChatNotFoundException(chatId));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberNotFoundException(memberId));
         if(!chat.getMembers().contains(member)){
-            throw new MemberNotFoundException(memberId);
+            throw new MemberNotInChatException(memberId);
         }
         member.removeChat(chat);
         chat.removeMember(member);
@@ -72,6 +75,11 @@ public class ChatServiceImpl implements ChatService {
     }
     @Override
     public Chat getChat(Long id) {
-        return chatRepository.findById(id).get();
+        return chatRepository.findById(id).orElseThrow(() -> new ChatNotFoundException(id));
+    }
+
+    @Override
+    public Set<Member> getMembers(Long chatId){
+        return chatRepository.findById(chatId).orElseThrow(()-> new ChatNotFoundException(chatId)).getMembers(); 
     }
 }
