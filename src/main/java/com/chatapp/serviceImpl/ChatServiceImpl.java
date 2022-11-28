@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.chatapp.exception.MemberNotFoundException;
 import com.chatapp.model.Chat;
 import com.chatapp.model.Member;
 import com.chatapp.repository.ChatRepository;
@@ -57,7 +58,7 @@ public class ChatServiceImpl implements ChatService {
         Chat chat = chatRepository.findById(chatId).get();
         Member member = memberRepository.findById(memberId).get();
         if(!chat.getMembers().contains(member)){
-            return chat;
+            throw new MemberNotFoundException(memberId);
         }
         member.removeChat(chat);
         chat.removeMember(member);

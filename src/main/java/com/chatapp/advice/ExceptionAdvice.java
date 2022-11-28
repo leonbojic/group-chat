@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.chatapp.exception.ChatNotFoundException;
+import com.chatapp.exception.MemberIsNotPosterException;
 import com.chatapp.exception.MemberNotFoundException;
+import com.chatapp.exception.MemberNotInChatException;
 import com.chatapp.exception.PostNotFoundException;
 
 @ControllerAdvice
-public class PostNotFoundAdvice {
+public class ExceptionAdvice {
     
     @ResponseBody
     @ExceptionHandler(MemberNotFoundException.class)
@@ -21,7 +23,7 @@ public class PostNotFoundAdvice {
     }
 
     @ResponseBody
-    @ExceptionHandler(MemberNotFoundException.class)
+    @ExceptionHandler(ChatNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String chatNotFoundHandler(ChatNotFoundException ex){
         return ex.getMessage();
@@ -34,5 +36,21 @@ public class PostNotFoundAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(MemberNotInChatException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    String memberNotInChatHandler(MemberNotInChatException ex){
+        return ex.getMessage();
+    }
 
-}
+    @ResponseBody
+    @ExceptionHandler(MemberIsNotPosterException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    String memberIsNotPosterHandler(MemberIsNotPosterException ex){
+        return ex.getMessage();
+    }
+
+    
+
+    
+}   

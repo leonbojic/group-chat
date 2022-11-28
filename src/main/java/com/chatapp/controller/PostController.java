@@ -31,12 +31,12 @@ public class PostController {
        return postService.newPost(chatId, memberId, content);
     }
 
-    @DeleteMapping("/delete/{postId}")
+    @DeleteMapping("/{postId}/delete")
     public void deletePost(@PathVariable Long memberId, @PathVariable Long chatId, @PathVariable Long postId){
         postService.deletePost(memberId,chatId,postId);
     }
 
-    @PutMapping("/edit/{postId}")
+    @PutMapping("/{postId}/edit")
     public void editPost(
         @PathVariable Long memberId,
         @PathVariable Long postId,
