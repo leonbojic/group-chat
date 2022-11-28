@@ -1,5 +1,7 @@
 package com.chatapp.serviceImpl;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.chatapp.model.Chat;
@@ -49,7 +51,8 @@ public class PostServiceImpl implements PostService {
         if(!chat.getMembers().contains(member)){
             return post;
         }
-        
+        post.setCreatedAt(LocalDateTime.now());
+
         chat.addPost(post);
         chatRepository.save(chat);
         return post;
@@ -61,6 +64,8 @@ public class PostServiceImpl implements PostService {
         if(!post.getPoster().equals(memberRepository.findById(memberId).get())){
             return post;
         }
+        post.setEditedAt(LocalDateTime.now());
+
         post.setContent(content);
         return postRepository.save(post);
     }

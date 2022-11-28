@@ -44,4 +44,7 @@ public class PostController {
     ){
         postService.editPost(memberId, postId, content);
     }
+
+
+    
 }

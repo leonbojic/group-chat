@@ -21,7 +21,8 @@ public class Post {
     @ManyToOne()
     private Member poster;
     private String content;
-    private LocalDateTime timestamp;
+    private LocalDateTime createdAt;
+    private LocalDateTime editedAt;
     
     @ManyToOne(
         //cascade = CascadeType.ALL,
@@ -60,15 +61,7 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
+    
     public Chat getChat() {
         return chat;
     }
@@ -83,6 +76,22 @@ public class Post {
 
     public void setUsername(Member poster) {
         this.poster = poster;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getEditedAt() {
+        return editedAt;
+    }
+
+    public void setEditedAt(LocalDateTime editedAt) {
+        this.editedAt = editedAt;
     }
 
 
